@@ -1,0 +1,33 @@
+:root {
+    --color-white: #FFFFFF;
+    --nav-height: 70px;
+    --default-shadow: 0 1px 10px rgba(0,0,0,0.5);
+    --default-transition: linear 0.2s;
+}
+
+
+body {
+    margin: 0;
+}
+
+
+nav {
+    position: fixed;
+    top: 0;
+    box-shadow: none;
+    transition: var(--default-transition) box-shadow;
+    height: var(--nav-height);
+    background-color: var(--color-white);
+    width: 100%;
+}
+
+
+nav.scrolled {
+    transition: var(--default-transition) box-shadow;
+    box-shadow: var(--default-shadow);
+}
+
+
+div.outer-container {
+    margin-top: var(--nav-height);
+}
