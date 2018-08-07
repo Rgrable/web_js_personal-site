@@ -3,11 +3,13 @@
     --nav-height: 70px;
     --default-shadow: 0 1px 10px rgba(0,0,0,0.5);
     --default-transition: linear 0.2s;
+    --default-width: 800px;
 }
 
 
 body {
     margin: 0;
+    font-family: sans-serif;
 }
 
 
@@ -28,6 +30,25 @@ nav.scrolled {
 }
 
 
+nav div.container {
+    width: var(--default-width);
+    margin: auto;
+    height: 100%;
+}
+
+
 div.outer-container {
     margin-top: var(--nav-height);
+}
+
+
+div.main {
+    width: var(--default-width);
+    margin: auto;
+    padding: 15px;
+}
+
+
+h2.title {
+
 }
