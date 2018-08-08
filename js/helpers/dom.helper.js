@@ -28,7 +28,17 @@ DomHelper.createElement = function(type, options) {
     if (options.click) {
         d.onclick = options.click;
     }
+
+    if (options.style) {
+        for (let o of Object.keys(options.style)) {
+            d.style[o] = options.style[o];
+        }
+    }
     return d;
+};
+
+DomHelper.createDiv = function(options) {
+    return this.createElement('div', options);
 };
 
 DomHelper.createH1 = function (options) {

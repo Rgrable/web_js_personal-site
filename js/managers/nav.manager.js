@@ -30,5 +30,5 @@ if (!window.Managers) {
         };
     };
 
-    window.Managers.NavManager = new NavManager();
+    window.Managers.NavManager = NavManager;
 })();

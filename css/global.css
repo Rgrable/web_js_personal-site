@@ -4,12 +4,14 @@
     --default-shadow: 0 1px 10px rgba(0,0,0,0.5);
     --default-transition: linear 0.2s;
     --default-width: 800px;
+    --color-gray: #5A666F;
 }
 
 
 body {
     margin: 0;
     font-family: sans-serif;
+    background-color: lightgray;
 }
 
 
@@ -17,25 +19,48 @@ nav {
     position: fixed;
     top: 0;
     box-shadow: none;
-    transition: var(--default-transition) box-shadow;
     height: var(--nav-height);
-    background-color: var(--color-white);
+    background-color: transparent;
     width: 100%;
+    z-index: 1001;
 }
 
 
-nav.scrolled {
-    transition: var(--default-transition) box-shadow;
+nav div.container.scrolled {
+    transition: var(--default-transition) box-shadow border-radius;
     box-shadow: var(--default-shadow);
+    border-radius: 0;
 }
 
 
 nav div.container {
+    box-shadow: none;
+    transition: var(--default-transition) box-shadow;
     width: var(--default-width);
+    background-color: var(--color-gray);
     margin: auto;
     height: 100%;
+    padding: 0 30px;
+    border-radius: 10px 10px 0 0;
+    border: 1px gray solid;
+    border-bottom: none;
 }
 
+
+nav div.container button {
+    height: 100%;
+    width: 100px;
+    border-style: none;
+    font-size: 16px;
+    background-color: transparent;
+    cursor: pointer;
+    color: var(--color-white);
+}
+
+
+nav div.container button:focus {
+    outline: none;
+}
 
 div.outer-container {
     margin-top: var(--nav-height);
@@ -44,11 +69,29 @@ div.outer-container {
 
 div.main {
     width: var(--default-width);
-    margin: auto;
-    padding: 15px;
+    background-color: var(--color-white);
+    border-radius: 0 0 10px 10px;
+    border: 1px gray solid;
+    border-top: none;
+    margin: 0 auto 15px;
+    min-height: 0;
+    padding: 30px;
+    transition: min-height 0.5s ease-in-out;
+    will-change: min-height;
+    overflow: hidden;
 }
 
 
-h2.title {
+h1.title {
 
+}
+
+@media (max-width: 800px) {
+    :root {
+        --default-width: auto;
+    }
+
+    nav div.container {
+        border-radius: 0;
+    }
 }

@@ -13,12 +13,21 @@ if (!window.Controllers) {
         this.main.appendChild(this.buildView());
     };
 
-    AbstractController.prototype.loadCss = function(css, id) {
-        let d = document.createElement('link');
-        d.href = CSS_DIR + css;
-        d.id = id;
-        d.rel = "stylesheet";
-        document.head.appendChild(d);
+    AbstractController.prototype.removeView = function() {
+        this.destroyView();
+    };
+
+    AbstractController.prototype.loadCss = function(css) {
+        return new Promise(resolve => {
+            let d = document.createElement('link');
+            d.href = CSS_DIR + css;
+            d.id = this.cssName();
+            d.rel = "stylesheet";
+            document.head.appendChild(d);
+            setTimeout(() => {
+                resolve();
+            }, 10);
+        });
     };
 
     AbstractController.prototype.removeCss = function(id) {
@@ -35,6 +44,22 @@ if (!window.Controllers) {
     AbstractController.prototype.buildView = function () {
         console.log("buildView is not implemented!");
         return null;
+    };
+
+    /***
+     * @abstract
+     */
+    AbstractController.prototype.destroyView = function () {
+        console.log("destroyView is not implemented!");
+    };
+
+    /***
+     * @abstract
+     * @returns {string}
+     */
+    AbstractController.prototype.cssName = function() {
+        console.log("cssName is not implemented!");
+        return "";
     };
 
     window.Controllers.AbstractController = AbstractController;
