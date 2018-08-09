@@ -51,7 +51,7 @@ nav div.container button {
     height: 100%;
     width: 100px;
     border-style: none;
-    font-size: 16px;
+    font-size: 18px;
     background-color: transparent;
     cursor: pointer;
     color: var(--color-white);
@@ -73,17 +73,19 @@ div.main {
     border-radius: 0 0 10px 10px;
     border: 1px gray solid;
     border-top: none;
+    height: 0;
     margin: 0 auto 15px;
-    min-height: 0;
     padding: 30px;
-    transition: min-height 0.5s ease-in-out;
-    will-change: min-height;
+    transition: height 0.25s ease-in-out;
+    will-change: height;
     overflow: hidden;
 }
 
 
 h1.title {
-
+    margin: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 @media (max-width: 800px) {

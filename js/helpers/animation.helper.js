@@ -3,7 +3,7 @@ function AnimationHelper() {}
 /***
  * applies an animation to a DOM element
  * @param el
- * @param options : {delay,anim,length,[onfinished],[onstart]}
+ * @param options : {delay,anim,length,[onfinished],[onstart],[opt]}
  */
 AnimationHelper.applyAnimation = function (el, options) {
     options = options || {};
@@ -15,7 +15,7 @@ AnimationHelper.applyAnimation = function (el, options) {
             if (options.onfinished) {
                 options.onfinished();
             }
-        }, options.anim(el, options.length));
+        }, options.anim(el, options.length, options.opt));
     }, options.delay || 0);
 };
 

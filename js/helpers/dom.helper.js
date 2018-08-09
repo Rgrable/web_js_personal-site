@@ -37,6 +37,17 @@ DomHelper.createElement = function(type, options) {
     return d;
 };
 
+DomHelper.createResizeEvent = function (el, event) {
+    let sizeY = el.offsetHeight;
+    let listener = setInterval(() => {
+        if (sizeY !== el.offsetHeight) {
+            sizeY = el.offsetHeight;
+            event(sizeY);
+        }
+    }, 200);
+    return listener;
+};
+
 DomHelper.createDiv = function(options) {
     return this.createElement('div', options);
 };
@@ -51,4 +62,8 @@ DomHelper.createImg = function(options) {
 
 DomHelper.createBtn = function (options) {
     return this.createElement('button', options);
+};
+
+DomHelper.createP = function(options) {
+    return this.createElement('p', options);
 };

@@ -12,7 +12,14 @@ const HomeView = {
         AnimationHelper.applyAnimation(img, {delay: 100, anim: AnimationHelper.genericAnimations.fadeIn, length: 0.5});
     },
     blogCard: (container) => {
-
+        let card = DomHelper.createDiv();
+        let title = DomHelper.createH1({text: "Title"});
+        let p = DomHelper.createP({text: "This is a paragraph and should be treated as such"});
+        card.appendChild(title);
+        card.appendChild(p);
+        AnimationHelper.genericAnimations.fadeOutLeft(card);
+        AnimationHelper.applyAnimation(card, {delay: 100, anim: AnimationHelper.genericAnimations.fadeIn, length: 0.25});
+        container.appendChild(card);
     }
 };
 

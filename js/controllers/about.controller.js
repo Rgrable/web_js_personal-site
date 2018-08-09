@@ -4,24 +4,27 @@ if (!window.Controllers) {
 
 (function () {
 
-    function AboutController() {
-        window.Controllers.AbstractController.call(this);
+    function AboutController(manager) {
+        window.Controllers.AbstractController.call(this, manager);
+        this.container = null;
     }
 
     AboutController.prototype = window.Controllers.AbstractController.prototype;
     AboutController.prototype.constructor = AboutController;
 
     AboutController.prototype.buildView = function () {
-        this.main.style.minHeight = "200px";
-        let d = document.createElement('div');
-        d.appendChild(DomHelper.createH1({text: "About", class: "title"}));
-        return d;
+        this.container = DomHelper.createDiv();
+        this.container.appendChild(DomHelper.createH1({text: "About", class: "title"}));
+        return this.container;
     };
 
     AboutController.prototype.destroyView = function() {
-        this.removeCss(this.cssName());
-        this.main.style.minHeight = "0";
-        this.main.innerHTML = ``;
+        return new Promise(resolve => {
+            this.removeCss(this.cssName());
+            AnimationHelper.applyAnimation(this.container, {anim: AnimationHelper.genericAnimations.fadeOutLeft, length: 0.25, onfinished: () => {
+                resolve();
+            }});
+        });
     };
 
     AboutController.prototype.cssName = function() {

@@ -5,17 +5,9 @@ if (!window.Controllers) {
 (function () {
     const CSS_DIR = "css/";
 
-    function AbstractController() {
-        this.main = document.getElementById('main');
+    function AbstractController(manager) {
+        this.manager = manager;
     }
-
-    AbstractController.prototype.createView = function () {
-        this.main.appendChild(this.buildView());
-    };
-
-    AbstractController.prototype.removeView = function() {
-        this.destroyView();
-    };
 
     AbstractController.prototype.loadCss = function(css) {
         return new Promise(resolve => {
@@ -48,9 +40,11 @@ if (!window.Controllers) {
 
     /***
      * @abstract
+     * @returns {Promise<*>}
      */
     AbstractController.prototype.destroyView = function () {
         console.log("destroyView is not implemented!");
+        return Promise.reject("");
     };
 
     /***

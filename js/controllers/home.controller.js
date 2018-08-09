@@ -5,8 +5,8 @@ if (!window.Controllers) {
 (function () {
     const webService = window.Services.WebService;
 
-    function HomeController() {
-        window.Controllers.AbstractController.call(this);
+    function HomeController(manager) {
+        window.Controllers.AbstractController.call(this, manager);
         this.container = undefined;
     }
 
@@ -14,16 +14,18 @@ if (!window.Controllers) {
     HomeController.prototype.constructor = HomeController;
 
     HomeController.prototype.buildView = function() {
-        this.main.style.minHeight = "500px";
         this.container = DomHelper.createDiv();
         HomeView.main(this.container);
         return this.container;
     };
 
     HomeController.prototype.destroyView = function() {
-        this.removeCss(this.cssName());
-        this.main.style.minHeight = "0";
-        this.main.innerHTML = ``;
+        return new Promise(resolve => {
+            AnimationHelper.applyAnimation(this.container, {anim: AnimationHelper.genericAnimations.fadeOutLeft, length: 0.25, onfinished: () => {
+                    this.removeCss(this.cssName());
+                    resolve();
+            }});
+        });
     };
 
     HomeController.prototype.cssName = function() {

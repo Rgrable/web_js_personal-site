@@ -3,9 +3,22 @@ if (!window.Managers) {
 }
 
 (function () {
-    function NavManager() {
+    const BUTTONS = [
+        {
+            name: 'HOME',
+            controller: 'home'
+        },
+        {
+            name: 'ABOUT',
+            controller: 'about'
+        }];
+
+    function NavManager(onclick) {
         this.nav = document.getElementById('nav');
+        this.onclick = onclick;
+        this.slider = new window.MaterialSlider().setRoot(this.nav).build({height: "5px"});
         this.setEvents();
+        this.createButtons();
     }
 
     NavManager.prototype.showShadow = function () {
@@ -28,6 +41,30 @@ if (!window.Managers) {
                 this.hideShadow();
             }
         };
+    };
+
+    NavManager.prototype.createButtons = function() {
+        let del = 250;
+        let slid = false;
+        for (let i of BUTTONS) {
+            let btn = DomHelper.createBtn(
+                {
+                    text: i.name,
+                    click: () => {
+                        this.onclick(i.controller);
+                        this.slider.move(btn);
+                    }
+                });
+            this.nav.appendChild(btn);
+            AnimationHelper.genericAnimations.fadeOutUp(btn);
+            AnimationHelper.applyAnimation(btn, {delay: del, anim: AnimationHelper.genericAnimations.fadeIn, length: 0.25, onfinished: () => {
+                    if (!slid) {
+                        slid = true;
+                        this.slider.move(btn);
+                    }
+                }});
+            del += del;
+        }
     };
 
     window.Managers.NavManager = NavManager;

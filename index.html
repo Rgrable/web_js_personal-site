@@ -6,20 +6,12 @@
     <script>
         let nav = undefined;
         let cont = undefined;
-        let slider = undefined;
-        function navClick(name, btn) {
-            slider.move(btn);
-            cont.switchController(name);
-        }
 
         window.onload = function () {
-           nav = new Managers.NavManager();
+           nav = new Managers.NavManager((controller) => {
+               cont.switchController(controller);
+           });
            cont = new Managers.ControllerManager();
-           slider = new MaterialSlider()
-               .setRoot(document.getElementById('nav'))
-               .build({height: "5px"});
-
-           slider.move(document.getElementById('home-btn'));
            cont.switchController('home');
         };
     </script>
@@ -27,24 +19,20 @@
 </head>
 <body>
     <nav>
-        <div id="nav" class="container">
-            <button id="home-btn" onclick="navClick('home', this)">Home</button>
-            <button id="about-btn" onclick="navClick('about', this)">About</button>
-        </div>
+        <div id="nav" class="container"></div>
     </nav>
     <div class="outer-container">
-        <div id="main" class="main">
-        </div>
+        <div id="main" class="main"></div>
     </div>
 </body>
 <script src="js/utils.js"></script>
+<script src="js/addins/material-tabs/main.js"></script>
 <script src="js/helpers/dom.helper.js"></script>
 <script src="js/helpers/animation.helper.js"></script>
 <script src="js/services/web.service.js"></script>
 <script src="js/managers/nav.manager.js"></script>
 <script src="js/managers/controller.manager.js"></script>
 <script src="js/views/home.view.js"></script>
-<script src="js/material-tabs/main.js"></script>
 <script src="js/controllers/abstract.controller.js"></script>
 <script src="js/controllers/home.controller.js"></script>
 <script src="js/controllers/about.controller.js"></script>
