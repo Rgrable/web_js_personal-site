@@ -8,21 +8,38 @@ if (!window.Controllers) {
     function HomeController(manager) {
         window.Controllers.AbstractController.call(this, manager);
         this.container = undefined;
+        this.destroyed = false;
     }
 
     HomeController.prototype = Object.create(window.Controllers.AbstractController.prototype);
     HomeController.prototype.constructor = HomeController;
 
+    HomeController.prototype.fetchBlogPosts = function() {
+        webService.get(`?action=fetchPosts`).then(res => {
+            console.log(res);
+            let json = JSON.parse(res);
+            if (json.success && !this.destroyed) {
+                let delay = 250;
+                for (let res of json.result) {
+                    res.delay = delay;
+                    this.container.appendChild(HomeView.blogCard(res));
+                    delay += 250;
+                }
+            }
+        });
+    };
+
     HomeController.prototype.buildView = function() {
         this.container = DomHelper.createDiv();
-        HomeView.main(this.container);
+        this.container.appendChild(HomeView.main());
+        this.fetchBlogPosts();
         return this.container;
     };
 
     HomeController.prototype.destroyView = function() {
+        this.destroyed = true;
         return new Promise(resolve => {
             AnimationHelper.applyAnimation(this.container, {anim: AnimationHelper.genericAnimations.fadeOutLeft, length: 0.25, onfinished: () => {
-                    this.removeCss(this.cssName());
                     resolve();
             }});
         });

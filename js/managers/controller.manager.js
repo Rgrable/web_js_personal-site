@@ -3,6 +3,7 @@ if (!window.Managers) {
 }
 
 (function () {
+    const CSS_DIR = "css/";
     let __controller = undefined;
     let __curName = "";
 
@@ -11,9 +12,29 @@ if (!window.Managers) {
         this.sizeListener = null;
     }
 
+    ControllerManager.prototype.loadCss = function(css, name) {
+        return new Promise(resolve => {
+            let d = document.createElement('link');
+            d.href = CSS_DIR + css;
+            d.id = name;
+            d.rel = "stylesheet";
+            document.head.appendChild(d);
+            setTimeout(() => {
+                resolve();
+            }, 10);
+        });
+    };
+
+    ControllerManager.prototype.removeCss = function(id) {
+        let d = document.getElementById(id);
+        if (d) {
+            document.head.removeChild(d);
+        }
+    };
+
     /***
      * switches the controller
-     * @param controller : 'home','about'
+     * @param controller : 'home','about','skills'
      */
     ControllerManager.prototype.switchController = async function (controller) {
         if (__curName && __curName === controller) {
@@ -27,6 +48,7 @@ if (!window.Managers) {
         __curName = controller;
         if (__controller) {
             await __controller.destroyView();
+            this.removeCss(__controller.cssName());
             this.main.innerHTML = ``;
         }
 
@@ -41,9 +63,13 @@ if (!window.Managers) {
                 __controller = new window.Controllers.AboutController(this);
                 css = 'about.css';
                 break;
+            case 'skills':
+                __controller = new window.Controllers.SkillsController(this);
+                css = "skills.css";
+                break;
         }
 
-        __controller.loadCss(css).then(() => {
+        this.loadCss(css, __controller.cssName()).then(() => {
             let view = __controller.buildView();
             this.sizeListener = DomHelper.createResizeEvent(view, (sizeY) => {
                 this.main.style.height = sizeY + "px";

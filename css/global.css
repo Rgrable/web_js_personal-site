@@ -88,9 +88,13 @@ h1.title {
     padding-bottom: 15px;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 960px) {
     :root {
         --default-width: auto;
+    }
+
+    div.main {
+        padding: 15px;
     }
 
     nav div.container {

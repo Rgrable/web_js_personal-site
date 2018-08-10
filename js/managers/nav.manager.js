@@ -11,6 +11,10 @@ if (!window.Managers) {
         {
             name: 'ABOUT',
             controller: 'about'
+        },
+        {
+            name: 'SKILLS',
+            controller: 'skills'
         }];
 
     function NavManager(onclick) {
@@ -63,7 +67,7 @@ if (!window.Managers) {
                         this.slider.move(btn);
                     }
                 }});
-            del += del;
+            del += 250;
         }
     };
 

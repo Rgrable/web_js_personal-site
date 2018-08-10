@@ -8,11 +8,13 @@
         let cont = undefined;
 
         window.onload = function () {
-           nav = new Managers.NavManager((controller) => {
+            console.log(Controllers);
+            AssetHelper.instance.fetchAssets(Services.WebService);
+            nav = new Managers.NavManager((controller) => {
                cont.switchController(controller);
-           });
-           cont = new Managers.ControllerManager();
-           cont.switchController('home');
+            });
+            cont = new Managers.ControllerManager();
+            cont.switchController('home');
         };
     </script>
     <title>Richard Grable</title>
@@ -29,11 +31,14 @@
 <script src="js/addins/material-tabs/main.js"></script>
 <script src="js/helpers/dom.helper.js"></script>
 <script src="js/helpers/animation.helper.js"></script>
+<script src="js/helpers/asset.helper.js"></script>
 <script src="js/services/web.service.js"></script>
 <script src="js/managers/nav.manager.js"></script>
 <script src="js/managers/controller.manager.js"></script>
 <script src="js/views/home.view.js"></script>
+<script src="js/views/skills.view.js"></script>
 <script src="js/controllers/abstract.controller.js"></script>
-<script src="js/controllers/home.controller.js"></script>
 <script src="js/controllers/about.controller.js"></script>
+<script src="js/controllers/skills.controller.js"></script>
+<script src="js/controllers/home.controller.js"></script>
 </html>

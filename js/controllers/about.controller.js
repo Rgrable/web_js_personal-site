@@ -9,7 +9,7 @@ if (!window.Controllers) {
         this.container = null;
     }
 
-    AboutController.prototype = window.Controllers.AbstractController.prototype;
+    AboutController.prototype = Object.create(window.Controllers.AbstractController.prototype);
     AboutController.prototype.constructor = AboutController;
 
     AboutController.prototype.buildView = function () {
@@ -20,7 +20,6 @@ if (!window.Controllers) {
 
     AboutController.prototype.destroyView = function() {
         return new Promise(resolve => {
-            this.removeCss(this.cssName());
             AnimationHelper.applyAnimation(this.container, {anim: AnimationHelper.genericAnimations.fadeOutLeft, length: 0.25, onfinished: () => {
                 resolve();
             }});

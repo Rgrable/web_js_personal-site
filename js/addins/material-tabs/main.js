@@ -2,7 +2,7 @@
 
     const DEF_HEIGHT = "3px";
     const DEF_COLOR = "#FFFFFF";
-    const SPEED = 0.2;
+    const SPEED = 0.1;
 
     function createSlider(options) {
         options = options || {};

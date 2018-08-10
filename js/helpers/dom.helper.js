@@ -21,6 +21,10 @@ DomHelper.createElement = function(type, options) {
         d.innerHTML = options.html;
     }
 
+    if (options.href) {
+        d.href = options.href;
+    }
+
     if (options.src) {
         d.src = options.src;
     }
@@ -66,4 +70,8 @@ DomHelper.createBtn = function (options) {
 
 DomHelper.createP = function(options) {
     return this.createElement('p', options);
+};
+
+DomHelper.createA = function (options) {
+    return this.createElement('a', options);
 };

@@ -3,31 +3,10 @@ if (!window.Controllers) {
 }
 
 (function () {
-    const CSS_DIR = "css/";
 
     function AbstractController(manager) {
         this.manager = manager;
     }
-
-    AbstractController.prototype.loadCss = function(css) {
-        return new Promise(resolve => {
-            let d = document.createElement('link');
-            d.href = CSS_DIR + css;
-            d.id = this.cssName();
-            d.rel = "stylesheet";
-            document.head.appendChild(d);
-            setTimeout(() => {
-                resolve();
-            }, 10);
-        });
-    };
-
-    AbstractController.prototype.removeCss = function(id) {
-        let d = document.getElementById(id);
-        if (d) {
-            document.head.removeChild(d);
-        }
-    };
 
     /***
      * @abstract

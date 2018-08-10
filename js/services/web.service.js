@@ -3,17 +3,26 @@ if (!window.Services) {
 }
 
 (function () {
+    const URL = "https://backend.richardgrable.com/";
+    const ACCESS = "";
+    const CONTROLLER = "web";
+
     function WebService() {
 
     }
 
-    WebService.prototype.get = function(url) {
+    WebService.prototype.get = function(query) {
+        if (!query.startsWith("?")) {
+            query = "?" + query;
+        }
+
+        query += `&access=${ACCESS}&controller=${CONTROLLER}`;
         return new Promise(resolve => {
             let req = new XMLHttpRequest();
             req.onload = function () {
                 resolve(this.responseText);
             };
-            req.open('get', url, true);
+            req.open('get', URL + query, true);
             req.send();
         });
     };

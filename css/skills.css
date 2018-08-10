@@ -1,0 +1,34 @@
+div.skill-card {
+    display: inline-block;
+    position: relative;
+    width: 300px;
+    background-color: white;
+    border: 1px black solid;
+    box-shadow: none;
+    margin: 10px;
+    transform: translateY(0);
+    transition: transform 0.5s ease-out, box-shadow 0.5s ease-out;
+}
+
+div.skill-card:hover {
+    box-shadow: 0 5px rgba(0,0,0,0.5);
+    transform: translateY(-5px);
+}
+
+div.skill-card img.badge {
+    height: 90px;
+    padding: 10px 10px 5px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+div.skill-card div.info {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+div.skill-card p.title {
+    font-size: 18px;
+    text-align: center;
+}
+
