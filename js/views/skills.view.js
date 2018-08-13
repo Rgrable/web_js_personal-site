@@ -18,7 +18,9 @@ const SkillsView = {
         info.appendChild(exp);
         card.appendChild(badge);
         card.appendChild(info);
-        AnimationHelper.applyAnimation(card, {delay: data.delay, anim: AnimationHelper.genericAnimations.fadeIn, length: 0.25});
+        AnimationHelper.applyAnimation(card, {delay: data.delay, anim: AnimationHelper.genericAnimations.fadeIn, length: 0.25, onfinished: () => {
+            AnimationHelper.clearAnimation(card);
+        }});
         return card;
     }
 };

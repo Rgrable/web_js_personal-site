@@ -5,7 +5,7 @@ if (!window.Controllers) {
 (function () {
     const webService = window.Services.WebService;
 
-    function HomeController(manager) {
+    function HomeController(manager, options) {
         window.Controllers.AbstractController.call(this, manager);
         this.container = undefined;
         this.destroyed = false;

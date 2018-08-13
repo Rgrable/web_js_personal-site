@@ -1,30 +1,33 @@
+div.skill-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: row;
+}
+
 div.skill-card {
     display: inline-block;
+    height: 200px;
     position: relative;
-    width: 300px;
-    background-color: white;
-    border: 1px black solid;
-    box-shadow: none;
-    margin: 10px;
+    text-align: center;
+    flex-basis: 33%;
     transform: translateY(0);
-    transition: transform 0.5s ease-out, box-shadow 0.5s ease-out;
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+    transition: transform 0.25s ease-in, box-shadow 0.25s ease-in;
 }
 
 div.skill-card:hover {
-    box-shadow: 0 5px rgba(0,0,0,0.5);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     transform: translateY(-5px);
 }
 
 div.skill-card img.badge {
     height: 90px;
     padding: 10px 10px 5px;
-    display: inline-block;
-    vertical-align: middle;
 }
 
 div.skill-card div.info {
-    display: inline-block;
-    vertical-align: middle;
+    margin: 5px;
 }
 
 div.skill-card p.title {
@@ -32,3 +35,20 @@ div.skill-card p.title {
     text-align: center;
 }
 
+@media screen and (max-width: 960px) {
+    div.skill-card {
+        flex-basis: 33%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    div.skill-card {
+        flex-basis: 50%;
+    }
+}
+
+@media screen and (max-width: 450px){
+    div.skill-card {
+        flex-basis: 100%;
+    }
+}

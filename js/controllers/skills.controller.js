@@ -4,8 +4,9 @@ if (!window.Controllers) {
 
 (function () {
     const webService = window.Services.WebService;
+    let _data = null;
 
-    function SkillsController(manager) {
+    function SkillsController(manager, options) {
         window.Controllers.AbstractController.call(this, manager);
         this.container = null;
     }
@@ -17,11 +18,11 @@ if (!window.Controllers) {
     SkillsController.prototype.expName = function(exp) {
         if (exp > 90) {
             return "master";
-        } else if (exp > 75) {
+        } else if (exp > 70) {
             return "expert";
-        } else if (exp > 65) {
+        } else if (exp > 55) {
             return "proficient";
-        } else if (exp > 50) {
+        } else if (exp > 40) {
             return "novice";
         } else {
             return "n00b";
@@ -29,16 +30,31 @@ if (!window.Controllers) {
     };
 
     SkillsController.prototype.fetchSkills = function() {
-        webService.get(`?action=fetchSkills`).then(res => {
+        if (_data) {
             let delay = 250;
-            let json = JSON.parse(res);
-            for (let r of json.result) {
+            let cont = DomHelper.createDiv({class: "skill-card-container"});
+            for (let r of _data.result) {
                 r.expName = this.expName(r.exp);
                 r.delay = delay;
-                this.container.appendChild(SkillsView.skillCard(r));
-                delay += 250;
+                cont.appendChild(SkillsView.skillCard(r));
+                delay += 100;
             }
-        });
+            this.container.appendChild(cont);
+        } else {
+            webService.get(`?action=fetchSkills`).then(res => {
+                let delay = 250;
+                let cont = DomHelper.createDiv({class: "skill-card-container"});
+                let json = JSON.parse(res);
+                _data = json;
+                for (let r of json.result) {
+                    r.expName = this.expName(r.exp);
+                    r.delay = delay;
+                    cont.appendChild(SkillsView.skillCard(r));
+                    delay += 100;
+                }
+                this.container.appendChild(cont);
+            });
+        }
     };
 
     SkillsController.prototype.buildView = function () {

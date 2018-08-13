@@ -3,7 +3,7 @@
     --nav-height: 70px;
     --default-shadow: 0 1px 10px rgba(0,0,0,0.5);
     --default-transition: linear 0.2s;
-    --default-width: 800px;
+    --default-width: 960px;
     --color-gray: #5A666F;
 }
 
@@ -32,9 +32,17 @@ nav div.container.scrolled {
     border-radius: 0;
 }
 
+i#close {
+    color: white;
+    position: absolute !important;
+    right: 20px;
+    top: 15px;
+    font-size: 30px;
+}
 
 nav div.container {
     box-shadow: none;
+    overflow: hidden;
     transition: var(--default-transition) box-shadow;
     width: var(--default-width);
     background-color: var(--color-gray);
@@ -46,15 +54,29 @@ nav div.container {
     border-bottom: none;
 }
 
+nav div.container div.animator {
+    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
 
 nav div.container button {
     height: 100%;
-    width: 100px;
+    width: 150px;
+    position: relative;
     border-style: none;
     font-size: 18px;
     background-color: transparent;
     cursor: pointer;
     color: var(--color-white);
+    z-index: 2;
 }
 
 
@@ -93,11 +115,21 @@ h1.title {
         --default-width: auto;
     }
 
+    body {
+        background-color: #FFFFFF;
+    }
+
     div.main {
         padding: 15px;
     }
 
     nav div.container {
         border-radius: 0;
+    }
+
+    div.main {
+        transition: none;
+        border-radius: 0;
+        border: none;
     }
 }

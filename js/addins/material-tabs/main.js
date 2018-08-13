@@ -11,6 +11,7 @@
         d.style.backgroundColor = options.color || DEF_COLOR;
         d.style.position = "absolute";
         d.style.bottom = "0";
+        d.style.zIndex = "100";
         d.style.willChange = "width, left";
 
         return d;

@@ -19,6 +19,10 @@ AnimationHelper.applyAnimation = function (el, options) {
     }, options.delay || 0);
 };
 
+AnimationHelper.clearAnimation = function(el) {
+    el.style = undefined;
+};
+
 AnimationHelper.genericAnimations = {
     fadeOutUp: (el, t, opt) => {
         t = t || 0.25;
