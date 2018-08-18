@@ -26,7 +26,7 @@ nav {
 
 
 nav div.container.scrolled {
-    transition: var(--default-transition) box-shadow border-radius;
+    transition: box-shadow var(--default-transition), border-radius var(--default-transition);
     box-shadow: var(--default-shadow);
     border-radius: 0;
 }
@@ -54,7 +54,7 @@ nav div.container {
     box-shadow: none;
     position: relative;
     overflow: hidden;
-    transition: var(--default-transition) box-shadow;
+    transition: box-shadow var(--default-transition);
     width: var(--default-width);
     background-color: var(--color-gray);
     margin: auto;
