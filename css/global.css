@@ -90,6 +90,7 @@ nav div.container div#mobile-nav button {
 
 nav div.container div#mobile-nav button:focus {
     outline: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 nav div.container button {
@@ -150,6 +151,7 @@ h1.title {
 
     nav div.container {
         border-radius: 0;
+        border: none;
     }
 
     div.main {
