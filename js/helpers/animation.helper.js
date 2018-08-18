@@ -7,10 +7,10 @@ function AnimationHelper() {}
  */
 AnimationHelper.applyAnimation = function (el, options) {
     options = options || {};
+    if (options.onstart) {
+        options.onstart();
+    }
     setTimeout(() => {
-        if (options.onstart) {
-            options.onstart();
-        }
         setTimeout(() => {
             if (options.onfinished) {
                 options.onfinished();
@@ -32,7 +32,7 @@ AnimationHelper.genericAnimations = {
         el.style.willChange = 'transform, opacity';
         el.style.opacity = '0';
         el.style.transform = `translateY(${opt.y})`;
-        el.style.transition = `transform ease-in-out ${t}s, opacity ease-in-out ${t}s`;
+        el.style.transition = `all ease-in-out ${t}s`;
         return t * 1000;
     },
     fadeOutLeft: (el, t, opt) => {
@@ -43,7 +43,7 @@ AnimationHelper.genericAnimations = {
         el.style.willChange = 'transform, opacity';
         el.style.opacity = '0';
         el.style.transform = `translateX(${opt.x})`;
-        el.style.transition = `transform ease-in-out ${t}s, opacity ease-in-out ${t}s`;
+        el.style.transition = `all ease-in-out ${t}s`;
         return t * 1000;
     },
     fadeOutRight: (el, t, opt) => {
@@ -54,7 +54,7 @@ AnimationHelper.genericAnimations = {
         el.style.willChange = 'transform, opacity';
         el.style.opacity = '0';
         el.style.transform = `translateX(${opt.x})`;
-        el.style.transition = `transform ease-in-out ${t}s, opacity ease-in-out ${t}s`;
+        el.style.transition = `all ease-in-out ${t}s`;
         return t * 1000;
     },
     fadeOutDown: (el, t, opt) => {
@@ -65,7 +65,7 @@ AnimationHelper.genericAnimations = {
         el.style.willChange = 'transform, opacity';
         el.style.opacity = '0';
         el.style.transform = `translateY(${opt.y})`;
-        el.style.transition = `transform ease-in-out ${t}s, opacity ease-in-out ${t}s`;
+        el.style.transition = `all ease-in-out ${t}s`;
         return t * 1000;
     },
     fadeIn: (el, t, opt) => {
@@ -76,7 +76,7 @@ AnimationHelper.genericAnimations = {
         el.style.willChange = 'transform, opacity';
         el.style.opacity = '1';
         el.style.transform = `none`;
-        el.style.transition = `transform ease-in-out ${t}s, opacity ease-in-out ${t}s`;
+        el.style.transition = `all ease-in-out ${t}s`;
         return t * 1000;
     }
 };

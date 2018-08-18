@@ -15,39 +15,36 @@ if (!window.Controllers) {
     ProjectController.prototype = Object.create(window.Controllers.AbstractController.prototype);
     ProjectController.prototype.constructor = ProjectController;
 
+    ProjectController.prototype.populateProjects = function(data) {
+        let jobDelay = 250;
+        for (let jobs of data.result) {
+            let projectDelay = jobDelay;
+            jobs.delay = jobDelay;
+            let j = ProjectView.job(jobs);
+            for (let cat of jobs.projects) {
+                for (let project of cat.projects) {
+                    project.delay = projectDelay;
+                    let p = ProjectView.project(project, (d) => {
+                        this.manager.switchController('project-desc', d);
+                    });
+                    j.projects.appendChild(p);
+                    projectDelay += 50;
+                }
+            }
+            jobDelay += 250;
+            this.container.appendChild(j.job);
+        }
+    };
+
     ProjectController.prototype.fetchProjects = function() {
         if (_data) {
-            for (let jobs of _data.result) {
-                let j = ProjectView.job(jobs);
-                for (let cat of jobs.projects) {
-                    for (let project of cat.projects) {
-                        console.log(project);
-                        let p = ProjectView.project(project, (data) => {
-                            this.manager.switchController('project-desc', data);
-                        });
-                        j.projects.appendChild(p);
-                    }
-                }
-                this.container.appendChild(j.job);
-            }
+            this.populateProjects(_data);
         } else {
             webService.get(`?action=fetchProjects`).then(res => {
                 let json = JSON.parse(res);
                 if (json.success) {
                     _data = json;
-                    for (let jobs of json.result) {
-                        let j = ProjectView.job(jobs);
-                        for (let cat of jobs.projects) {
-                            for (let project of cat.projects) {
-                                console.log(project);
-                                let p = ProjectView.project(project, (data) => {
-                                    this.manager.switchController('project-desc', data);
-                                });
-                                j.projects.appendChild(p);
-                            }
-                        }
-                        this.container.appendChild(j.job);
-                    }
+                    this.populateProjects(json);
                 }
             });
         }
@@ -55,7 +52,7 @@ if (!window.Controllers) {
 
     ProjectController.prototype.buildView = function () {
         this.container = DomHelper.createDiv();
-        this.container.appendChild(DomHelper.createH1({text: "Projects", class: "title"}));
+        this.container.appendChild(ProjectView.main());
         this.fetchProjects();
         return this.container;
     };

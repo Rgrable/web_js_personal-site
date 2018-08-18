@@ -1,5 +1,5 @@
 function AssetHelper() {
-    this.assets = null;
+    this.assets = {};
     this.fetching = false;
 }
 
@@ -14,13 +14,16 @@ AssetHelper.prototype.wait = function() {
 };
 
 AssetHelper.prototype.fetchAssets = function (webService) {
-    webService.get(`?action=fetchAssets`).then(res => {
-        this.assets = {};
-        let json = JSON.parse(res);
-        for (let r of json.result) {
-            this.assets[r.name] = r.src;
-        }
-        this.fetching = false;
+    return new Promise(resolve => {
+        webService.get(`?action=fetchAssets`).then(res => {
+            this.assets = {};
+            let json = JSON.parse(res);
+            for (let r of json.result) {
+                this.assets[r.name] = r.src;
+            }
+            this.fetching = false;
+            resolve();
+        });
     });
 };
 

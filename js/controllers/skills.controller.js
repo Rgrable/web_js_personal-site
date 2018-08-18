@@ -29,30 +29,28 @@ if (!window.Controllers) {
         }
     };
 
+    SkillsController.prototype.populateSkills = function(data) {
+        let delay = 250;
+        let cont = DomHelper.createDiv({class: "skill-card-container"});
+        for (let r of data.result) {
+            r.expName = this.expName(r.exp);
+            r.delay = delay;
+            cont.appendChild(SkillsView.skillCard(r));
+            delay += 100;
+        }
+        this.container.appendChild(cont);
+    };
+
     SkillsController.prototype.fetchSkills = function() {
         if (_data) {
-            let delay = 250;
-            let cont = DomHelper.createDiv({class: "skill-card-container"});
-            for (let r of _data.result) {
-                r.expName = this.expName(r.exp);
-                r.delay = delay;
-                cont.appendChild(SkillsView.skillCard(r));
-                delay += 100;
-            }
-            this.container.appendChild(cont);
+            this.populateSkills(_data);
         } else {
             webService.get(`?action=fetchSkills`).then(res => {
-                let delay = 250;
-                let cont = DomHelper.createDiv({class: "skill-card-container"});
                 let json = JSON.parse(res);
-                _data = json;
-                for (let r of json.result) {
-                    r.expName = this.expName(r.exp);
-                    r.delay = delay;
-                    cont.appendChild(SkillsView.skillCard(r));
-                    delay += 100;
+                if (json.success) {
+                    this.populateSkills(json);
+                    _data = json;
                 }
-                this.container.appendChild(cont);
             });
         }
     };

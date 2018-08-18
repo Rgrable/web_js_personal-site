@@ -2,19 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link href="css/global.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/themes/prism.min.css" rel="stylesheet" />
     <script>
         let nav = undefined;
         let cont = undefined;
-
+        let loading = undefined;
         window.onload = function () {
-            console.log(Controllers);
-            AssetHelper.instance.fetchAssets(Services.WebService);
+            loading = document.getElementById('loading');
+            Services.WebService.setEvents(() => {
+                loading.style.display = "block";
+            }, () => {
+                loading.style.display = "none";
+            });
+
             cont = new Managers.ControllerManager();
             nav = new Managers.NavManager((controller) => {
-               cont.switchController(controller);
+                cont.switchController(controller);
             }, () => {
                 cont.goBack();
             });
@@ -25,16 +30,24 @@
                 nav.hideButtons();
             });
 
-            cont.switchController('home');
             nav.setEvents();
+            AssetHelper.instance.fetchAssets(Services.WebService).then(() => {
+                cont.switchController(cont.fromLocation());
+            });
         };
     </script>
     <title>Richard Grable</title>
 </head>
 <body>
     <nav>
-        <div id="nav" class="container">
+        <div id="nav-container" class="container">
+            <div id="nav">
+            </div>
+            <div id="mobile-nav">
+                <i id="hamburger" class="fa fa-bars"></i>
+            </div>
             <i id="close" class="fa fa-close"></i>
+            <i id="loading" class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
         </div>
     </nav>
     <div class="outer-container">
@@ -54,6 +67,7 @@
 <script src="js/views/project.view.js"></script>
 <script src="js/views/skills.view.js"></script>
 <script src="js/controllers/abstract.controller.js"></script>
+<script src="js/controllers/markdown.controller.js"></script>
 <script src="js/controllers/project.controller.js"></script>
 <script src="js/controllers/skills.controller.js"></script>
 <script src="js/controllers/home.controller.js"></script>

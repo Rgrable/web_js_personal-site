@@ -21,6 +21,14 @@ DomHelper.createElement = function(type, options) {
         d.innerHTML = options.html;
     }
 
+    if (options.title) {
+        d.title = options.title;
+    }
+
+    if (options.target) {
+        d.target = options.target;
+    }
+
     if (options.href) {
         d.href = options.href;
     }
@@ -58,6 +66,10 @@ DomHelper.createDiv = function(options) {
 
 DomHelper.createH1 = function (options) {
     return this.createElement('h1', options);
+};
+
+DomHelper.createH2 = function (options) {
+    return this.createElement('h2', options);
 };
 
 DomHelper.createImg = function(options) {

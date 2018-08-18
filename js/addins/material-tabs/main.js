@@ -61,19 +61,26 @@
         let left = getPosInRoot(this.root, button, 'left');
         let sli = getPosInRoot(this.root, this.slider, 'left');
         let width = button.offsetWidth;
-        console.log(left + " " + width);
         this.sliderPos.left = Math.floor(left);
         this.sliderPos.width = Math.ceil(width);
+    };
+
+    MaterialSlider.prototype.show = function() {
+        this.slider.style.display = 'block';
+    };
+
+    MaterialSlider.prototype.hide = function() {
+        this.slider.style.display = 'none';
     };
 
     MaterialSlider.prototype.update = function () {
         let curLeft = getPosInRoot(this.root, this.slider, 'left');
         let nextLeft = this.sliderPos.left;
         let width = this.sliderPos.width;
-        if (curLeft < nextLeft - (SPEED * nextLeft)) {
-            this.slider.style.left = (curLeft + (nextLeft * SPEED)) + "px";
-        } else if (curLeft > nextLeft + (SPEED * nextLeft)) {
-            this.slider.style.left = (curLeft - (curLeft * SPEED)) + "px";
+        if (curLeft < nextLeft) {
+            this.slider.style.left = (curLeft + ((nextLeft - curLeft) * SPEED)) + "px";
+        } else if (curLeft > nextLeft) {
+            this.slider.style.left = (curLeft - ((curLeft - nextLeft) * SPEED)) + "px";
         } else {
             this.slider.style.left = nextLeft + "px";
         }

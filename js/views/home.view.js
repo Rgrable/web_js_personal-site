@@ -11,22 +11,12 @@ const HomeView = {
         AnimationHelper.applyAnimation(img, {delay: 100, anim: AnimationHelper.genericAnimations.fadeIn, length: 0.5});
         return header;
     },
-    blogCard: (data) => {
+    blogCard: (data, onclick) => {
         let card = DomHelper.createDiv({class: "blog-card"});
         let title = DomHelper.createH1({text: data.title});
         let time = DomHelper.createP({text: data.timestamp});
         let a = DomHelper.createA({text: "[Read More]", href: "#", click: () => {
-                let req = new XMLHttpRequest();
-                req.onreadystatechange = () => {
-                    if (req.readyState === 4 && req.status === 200) {
-                        let converter = new showdown.Converter(),
-                            text = req.responseText,
-                            html = converter.makeHtml(text);
-                        console.log(text);
-                    }
-                };
-                req.open('get', data.sourceLink);
-                req.send();
+                onclick(data.sourceLink);
         }});
         let p = DomHelper.createP({text: data.text});
         card.appendChild(title);
