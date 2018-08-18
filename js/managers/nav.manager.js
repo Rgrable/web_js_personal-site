@@ -75,14 +75,14 @@ if (!window.Managers) {
     };
 
     NavManager.prototype.showShadow = function () {
-        if (!this.nav.classList.contains('scrolled')) {
-            this.nav.classList.add('scrolled');
+        if (!this.navCont.classList.contains('scrolled')) {
+            this.navCont.classList.add('scrolled');
         }
     };
 
     NavManager.prototype.hideShadow = function () {
-        if (this.nav.classList.contains('scrolled')) {
-            this.nav.classList.remove('scrolled');
+        if (this.navCont.classList.contains('scrolled')) {
+            this.navCont.classList.remove('scrolled');
         }
     };
 
